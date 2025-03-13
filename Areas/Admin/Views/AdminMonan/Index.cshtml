@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PH53213_ASMNet1051.Models.MonAn>
+
+@{
+    ViewData["Title"] = "Danh sách Món Ăn";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Danh sách Món Ăn</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Thêm Món Ăn</a>
+</p>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.TenMonAn)</th>
+            <th>@Html.DisplayNameFor(model => model.MoTa)</th>
+            <th>@Html.DisplayNameFor(model => model.GiaTien)</th>
+            <th>Hình Ảnh</th>
+            <th>@Html.DisplayNameFor(model => model.TrangThai)</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TenMonAn)</td>
+                <td>@Html.DisplayFor(modelItem => item.MoTa)</td>
+                <td>@Html.DisplayFor(modelItem => item.GiaTien)</td>
+                <td>
+                    @if (item.HinhAnhURL != null)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(item.HinhAnhURL)" width="50" height="50" />
+                    }
+                    else
+                    {
+                        <div style="width: 75px; height: 100px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
+                            <span>3x4</span>
+                        </div>
+                    }
+                </td>
+                <td>@(item.TrangThai ? "Hoạt động" : "Không hoạt động")</td>
+                <td>
+                    <a href="/Admin/AdminMonan/Edit/@item.MaMonAn" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Details" asp-route-id="@item.MaMonAn" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaMonAn" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

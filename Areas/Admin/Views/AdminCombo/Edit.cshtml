@@ -1,0 +1,109 @@
+﻿@model PH53213_ASMNet1051.Models.Combo
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Combo";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Chỉnh sửa Combo</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="MaCombo" />
+
+    <div class="form-group mb-3">
+        <label asp-for="TenCombo" class="control-label"></label>
+        <input asp-for="TenCombo" class="form-control" />
+        <span asp-validation-for="TenCombo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="MoTa" class="control-label"></label>
+        <textarea asp-for="MoTa" class="form-control"></textarea>
+        <span asp-validation-for="MoTa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="GiaTien" class="control-label"></label>
+        <input asp-for="GiaTien" type="number" class="form-control" step="0.01" />
+        <span asp-validation-for="GiaTien" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HinhAnhURL" class="control-label"></label>
+        @if (Model.HinhAnhURL != null)
+        {
+            <div>
+                <img src="data:image/png;base64,@Convert.ToBase64String(Model.HinhAnhURL)" class="img-thumbnail" style="max-width: 150px; max-height: 150px;" />
+            </div>
+        }
+        <input type="file" name="uploadedFile" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="TrangThai" class="control-label"></label>
+        <select asp-for="TrangThai" class="form-control">
+            <option value="true">Hoạt động</option>
+            <option value="false">Không hoạt động</option>
+        </select>
+    </div>
+
+    <h3>Món Ăn Trong Combo</h3>
+    <div id="monAnList">
+        @for (int i = 0; i < Model.ChiTietCombos.Count; i++)
+        {
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <select name="MonAnIds" class="form-control">
+                        @foreach (var monAn in ViewBag.MonAns)
+                        {
+                            <option value="@monAn.MaMonAn" selected="@Model.ChiTietCombos.ElementAt(i).SoLuong">@monAn.TenMonAn</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" name="SoLuongs" class="form-control" value="@Model.ChiTietCombos.ElementAt(i).SoLuong" min="1" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger remove-item">Xóa</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <button type="button" id="addItem" class="btn btn-success">Thêm Món</button>
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('addItem').addEventListener('click', function () {
+            var monAnList = document.getElementById('monAnList');
+            var newItem = `<div class="row mb-2">
+                        <div class="col-md-6">
+                            <select name="MonAnIds" class="form-control">
+        @foreach (var monAn in ViewBag.MonAns)
+        {
+                                        <option value="@monAn.MaMonAn">@monAn.TenMonAn</option>
+        }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" name="SoLuongs" class="form-control" value="1" min="1" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger remove-item">Xóa</button>
+                        </div>
+                    </div>`;
+            monAnList.insertAdjacentHTML('beforeend', newItem);
+        });
+
+        document.getElementById('monAnList').addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-item')) {
+                e.target.closest('.row').remove();
+            }
+        });
+    </script>
+}

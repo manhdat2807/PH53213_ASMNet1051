@@ -1,0 +1,44 @@
+﻿@model PH53213_ASMNet1051.ViewModels.OrderPaymentViewModel
+
+@{
+    ViewData["Title"] = "Đặt hàng & Thanh toán";
+}
+
+<h2>Đặt hàng & Thanh toán</h2>
+
+@if (Model.IsSuccess)
+{
+    <div class="alert alert-success">@Model.Message</div>
+    <a href="@Url.Action("OrderHistory", "MonAn")" class="btn btn-primary">Xem lịch sử đặt hàng</a>
+}
+else
+{
+    <form asp-action="OrderNow" method="post">
+        <input type="hidden" asp-for="MaMonAn" />
+
+        <div class="card">
+            <img src="@Model.HinhAnhURL" alt="@Model.TenMonAn" class="card-img-top" style="max-width: 300px;">
+            <div class="card-body">
+                <h5 class="card-title">@Model.TenMonAn</h5>
+                <p class="card-text"><strong>Giá:</strong> @Model.GiaTien.ToString("N0") VNĐ</p>
+
+                <div class="form-group">
+                    <label for="SoLuong">Số lượng:</label>
+                    <input type="number" asp-for="SoLuong" class="form-control" min="1" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="MaPhuongThucTT">Phương thức thanh toán:</label>
+                    <select asp-for="MaPhuongThucTT" class="form-control">
+                        @foreach (var pt in Model.DanhSachPhuongThucTT)
+                        {
+                            <option value="@pt.MaPhuongThucTT">@pt.TenPhuongThuc</option>
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Xác nhận đặt hàng</button>
+            </div>
+        </div>
+    </form>
+}

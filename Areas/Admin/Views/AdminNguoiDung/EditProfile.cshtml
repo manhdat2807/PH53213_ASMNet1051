@@ -1,0 +1,34 @@
+﻿@model PH53213_ASMNet1051.Models.NguoiDung
+
+@{
+    ViewData["Title"] = "Chỉnh sửa hồ sơ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="EditProfile" method="post">
+    <div class="form-group">
+        <label for="Fullname">Họ và tên</label>
+        <input type="text" class="form-control" id="Fullname" name="Fullname" value="@Model.Fullname" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+
+    <div class="form-group">
+        <label for="DOB">Ngày sinh</label>
+        <input type="date" class="form-control" id="DOB" name="DOB" value="@Model.DOB.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="form-group">
+        <label for="PhoneNumber">Số điện thoại</label>
+        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+</form>
+
+<a href="@Url.Action("Profile", "AdminNguoiDung")">Quay lại hồ sơ</a>

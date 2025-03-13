@@ -1,0 +1,78 @@
+﻿@using Microsoft.IdentityModel.Tokens
+@model PH53213_ASMNet1051.Models.MonAn
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Món Ăn";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Chỉnh sửa Món Ăn</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="MaMonAn" />
+
+    <div class="form-group mb-3">
+        <label asp-for="TenMonAn" class="control-label"></label>
+        <input asp-for="TenMonAn" class="form-control" />
+        <span asp-validation-for="TenMonAn" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="MoTa" class="control-label"></label>
+        <textarea asp-for="MoTa" class="form-control"></textarea>
+        <span asp-validation-for="MoTa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="GiaTien" class="control-label"></label>
+        <input asp-for="GiaTien" type="number" class="form-control" />
+        <span asp-validation-for="GiaTien" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="HinhAnhURL" class="control-label">Hình ảnh</label>
+        <div>
+            @if (Model.HinhAnhURL != null && Model.HinhAnhURL.Length > 0)
+            {
+                var base64 = Convert.ToBase64String(Model.HinhAnhURL);
+                var imgSrc = $"data:image/jpeg;base64,{base64}";
+                <img src="@imgSrc" class="img-thumbnail" style="width: 150px; height: 200px; object-fit: cover;" />
+            }
+            else
+            {
+                <div style="width: 150px; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                    <span>Không có ảnh</span>
+                </div>
+            }
+        </div>
+        <input type="file" name="uploadedFile" class="form-control mt-2" />
+    </div>
+
+
+    <div class="form-group mb-3">
+        <label asp-for="MaDanhMuc" class="control-label"></label>
+        <select asp-for="MaDanhMuc" class="form-control" asp-items="@(new SelectList(ViewBag.DanhMucs, "MaDanhMuc", "TenDanhMuc"))">
+            <option value="">-- Chọn danh mục --</option>
+        </select>
+        <span asp-validation-for="MaDanhMuc" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="TrangThai" class="control-label"></label>
+        <select asp-for="TrangThai" class="form-control">
+            <option value="true">Hoạt động</option>
+            <option value="false">Không hoạt động</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

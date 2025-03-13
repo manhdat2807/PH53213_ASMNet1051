@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PH53213_ASMNet1051</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PH53213_ASMNet1051.styles.css" asp-append-version="true" />
+    <style>
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #8B0000;
+            padding-top: 20px;
+        }
+
+            .sidebar .nav-link {
+                color: #ffffff !important;
+                padding: 15px;
+                display: block;
+                text-decoration: none;
+            }
+
+                .sidebar .nav-link:hover {
+                    color: #FFD700 !important;
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <a class="navbar-brand text-white text-center d-block mb-3" asp-area="Admin" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-user-shield"></i> PH53213_ASMNet1051
+        </a>
+        <ul class="nav flex-column">
+            
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="AdminMonan" asp-action="Index">
+                    <i class="fas fa-utensils"></i> Món ăn
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="AdminCombo" asp-action="Index">
+                    <i class="fas fa-layer-group"></i> Combo
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="AdminDonHang" asp-action="Index">
+                    <i class="fas fa-shopping-cart"></i> Đơn Hàng
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="AdminUser" asp-action="Index">
+                    <i class="fas fa-users-cog"></i> Quản lý người dùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="DanhMuc" asp-action="Index">
+                    <i class="fas fa-users-cog"></i>Danh Mục
+                </a>
+            </li>
+           
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted text-center py-3">
+        <div class="container">
+            &copy; 2025 - PH53213_ASMNet1051 - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model PH53213_ASMNet1051.Models.MonAn
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Tạo Món Ăn";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary">@ViewData["Title"]</h2>
+    <div class="card shadow-sm p-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="TenMonAn" class="control-label font-weight-bold"></label>
+                <input asp-for="TenMonAn" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label font-weight-bold"></label>
+                <textarea asp-for="MoTa" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GiaTien" class="control-label font-weight-bold"></label>
+                <input asp-for="GiaTien" type="number" step="0.01" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaDanhMuc" class="control-label font-weight-bold">Danh Mục</label>
+                <select asp-for="MaDanhMuc" class="form-control" asp-items="ViewBag.DanhMucs">
+                    <option value="">-- Chọn Danh Mục --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold">Hình ảnh</label>
+                <input type="file" name="uploadedFile" class="form-control-file" accept="image/*" />
+            </div>
+
+            <div class="form-group form-check">
+                <input class="form-check-input" asp-for="TrangThai" />
+                <label class="form-check-label" asp-for="TrangThai">Hoạt động</label>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success">Tạo Món Ăn</button>
+                <a asp-action="Index" class="btn btn-danger">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>

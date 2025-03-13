@@ -1,0 +1,86 @@
+﻿@model PH53213_ASMNet1051.Models.Combo
+
+@{
+    ViewData["Title"] = "Thêm Combo";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Thêm Combo</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <label asp-for="TenCombo" class="control-label"></label>
+        <input asp-for="TenCombo" class="form-control" required />
+        <span asp-validation-for="TenCombo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="MoTa" class="control-label"></label>
+        <textarea asp-for="MoTa" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="GiaTien" class="control-label"></label>
+        <input asp-for="GiaTien" type="number" class="form-control" required />
+        <span asp-validation-for="GiaTien" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="control-label">Hình ảnh</label>
+        <input type="file" name="uploadedFile" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="control-label">Chọn Món Ăn</label>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Chọn</th>
+                    <th>Tên Món Ăn</th>
+                    <th>Số Lượng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var monAn in ViewBag.MonAns)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="MonAnIds" value="@monAn.MaMonAn" class="mon-an-checkbox" />
+                        </td>
+                        <td>@monAn.TenMonAn</td>
+                        <td>
+                            <input type="number" name="SoLuongs" class="form-control mon-an-quantity" min="1" disabled />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="TrangThai" class="control-label"></label>
+        <select asp-for="TrangThai" class="form-control">
+            <option value="true">Hoạt động</option>
+            <option value="false">Không hoạt động</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Thêm Combo</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll(".mon-an-checkbox").forEach(checkbox => {
+            checkbox.addEventListener("change", function () {
+                let quantityInput = this.closest("tr").querySelector(".mon-an-quantity");
+                quantityInput.disabled = !this.checked;
+                if (!this.checked) {
+                    quantityInput.value = "";
+                }
+            });
+        });
+    </script>
+}

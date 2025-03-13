@@ -1,0 +1,44 @@
+﻿@model PH53213_ASMNet1051.ViewModels.ComboViewModel
+
+@{
+    ViewData["Title"] = "Chi tiết Combo";
+}
+
+<h2>Chi tiết Combo</h2>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>@Model.TenCombo</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                @if (Model.HinhAnhURL != null && Model.HinhAnhURL.Length > 0)
+                {
+                    string imageBase64 = Convert.ToBase64String(Model.HinhAnhURL);
+                    string imageSrc = $"data:image/png;base64,{imageBase64}";
+                    <img src="@imageSrc" class="img-fluid rounded" alt="Hình ảnh combo">
+                }
+                else
+                {
+                    <p class="text-muted">Không có hình ảnh</p>
+                }
+            </div>
+            <div class="col-md-8">
+                <p><strong>Mô tả:</strong> @Model.MoTa</p>
+                <p><strong>Giá tiền:</strong> @Model.GiaTien.ToString("N0") VND</p>
+                <p><strong>Số lượng:</strong> @Model.SoLuong</p>
+
+                <h5>Danh sách món ăn:</h5>
+                <ul>
+                    @foreach (var monAn in Model.TenMonAn)
+                    {
+                        <li>@monAn</li>
+                    }
+                </ul>
+
+                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </div>
+    </div>
+</div>

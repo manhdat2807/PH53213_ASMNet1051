@@ -1,0 +1,39 @@
+﻿@model PH53213_ASMNet1051.Models.NguoiDung
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Thông tin người dùng";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Thông tin cá nhân</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Fullname">Họ và tên:</label>
+                    <p>@Model.Fullname</p>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email:</label>
+                    <p>@Model.Email</p>
+                </div>
+                <div class="form-group">
+                    <label for="PhoneNumber">Số điện thoại:</label>
+                    <p>@Model.PhoneNumber</p>
+                </div>
+                <div class="form-group">
+                    <label for="DOB">Ngày sinh:</label>
+                    <p>@Model.DOB.ToString("dd/MM/yyyy")</p>
+                </div>
+            </div>
+        </div>
+        <a href="@Url.Action("EditProfile", "AdminNguoiDung")" class="btn btn-warning mt-4">Chỉnh sửa thông tin</a>
+        <a href="@Url.Action("Logout", "Account")" class="btn btn-danger mt-4">Đăng xuất</a>
+    </div>
+</div>
+
